@@ -1,5 +1,6 @@
 package com.algorithms.coding;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 /*
@@ -8,12 +9,14 @@ import java.util.Arrays;
 public class EndlessStringMachine {
 
 	public static void main(String[] args) {
-		String input = "top";
-		String program = "$coder";
-		int s = 1;
-		int min = 1;
-		int max = 20;
+
+		String input = "ljaslkdukashdfijhalksjdfhlkaushldfkadskjfhalskjgdl";
+		String program = "$$ja$sklj$bk$a$djf$lbn$kl$jdfl$jash$l$kjha$dlkfjh$";
+		int s = 987238978;
+		int min = 897893749;
+		int max = 897893848;
 		System.out.println(getFragment(input, program, s, min, max));
+
 	}
 
 	private static String getFragment(String input, String program, int s, int min, int max) {
@@ -28,4 +31,5 @@ public class EndlessStringMachine {
 		}
 		return input.substring(min-1, max);
 	}
+	
 }
