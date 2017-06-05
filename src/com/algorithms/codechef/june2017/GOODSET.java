@@ -1,4 +1,4 @@
-package com.algorithms.codechef;
+package com.algorithms.codechef.june2017;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,77 +7,57 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-//https://www.codechef.com/IOIPRAC/problems/INOI1402
-
-public class Main {
-
+//https://www.codechef.com/JUNE17/problems/GOODSET
+ 
+public class GOODSET {
+ 
 	public static void main(String[] args) throws IOException {
 		StandardReader.init(System.in ); // connect Reader to an input stream		
-        int n = StandardReader.nextInt();
-        int m = StandardReader.nextInt();
-        long A[][] = new long[n][n];
-        for (int i = 0; i < n; i++) {
-			Arrays.fill(A[i], Integer.MAX_VALUE);
-			A[i][i] = 0;
-		}
-        
-        for (int i = 0; i < m; i++) {
-			int x = StandardReader.nextInt();
-			int y = StandardReader.nextInt();
-			int z = StandardReader.nextInt();
-			A[x-1][y-1] = A[y-1][x-1] = z;
-		}
-        boolean F[] = new boolean[n];
-        Arrays.fill(F, false);
-        long D[] = new long[n];
-        int Trace[] = new int[n];
-        for (int i = 0; i < n; i++) {
-			D[i] = A[0][i];
-			Trace[i] = 0;
-			F[i] = false;
-		}
-        Trace[0] = 0;
-        D[0] = 0;
-        F[0] = true;
-        while (!F[n-1]) {
-        	long min = Integer.MAX_VALUE;
-        	int u = -1;
-        	for (int i = 0; i < n; i++) {
-				if (!F[i] && D[i] < min) {
-					min = D[i];
-					u = i;
+        int T = StandardReader.nextInt();
+        while(T-- > 0) {
+        	int n = StandardReader.nextInt();
+        	if (n < 3) {
+        		for (int i = 1; i <= n; i++) {
+        			System.out.print(i + " ");
 				}
-			}
-        	F[u] = true;
-        	if (!F[n-1]) {
+        	} else {
+        		int a[] = new int[n];
+        		Arrays.fill(a, 0);
         		for (int i = 0; i < n; i++) {
-					if (!F[i] && D[i] > D[u] + A[u][i]) {
-						D[i] = D[u] + A[u][i];
-						Trace[i] = u;
-					}
+        			int x = 1;
+        			while (!isApplicable(x, a)) {
+        				x++;
+        			}
+        			a[i] = x;
+        			System.out.print(x + " ");
 				}
         	}
+        	System.out.println();
         }
-        System.out.println(D[n-1]);
-//        int i = Trace[n-1];
-//        while (i != 0) {
-//        	System.out.print((i + 1) + "<-");
-//        	i = Trace[i];
-//        }        
-//        System.out.print(n);
 	}
-
+	
+	private static boolean isApplicable(int x, int a[]) {
+		for (int i = 0; i < a.length - 1; i++) {
+			for (int j = i + 1; j < a.length; j++) {
+				if (a[i] + a[j] == x) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+ 
 	static class StandardReader {
 		static BufferedReader reader;
 	    static StringTokenizer tokenizer;
-
+ 
 	    /** call this method to initialize reader for InputStream */
 	    static void init(InputStream input) {
 	        reader = new BufferedReader(
 	                     new InputStreamReader(input) );
 	        tokenizer = new StringTokenizer("");
 	    }
-
+ 
 	    /** get next word */
 	    static String next() throws IOException {
 	        while ( ! tokenizer.hasMoreTokens() ) {
@@ -87,7 +67,7 @@ public class Main {
 	        }
 	        return tokenizer.nextToken();
 	    }
-
+ 
 	    static int nextInt() throws IOException {
 	        return Integer.parseInt( next() );
 	    }
@@ -100,5 +80,5 @@ public class Main {
 	        return Double.parseDouble( next() );
 	    }
 	}
-	
 }
+ 
