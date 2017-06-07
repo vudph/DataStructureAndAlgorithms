@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,7 +14,7 @@ import java.util.StringTokenizer;
 
 //https://www.codechef.com/JUNE17/problems/CLONEME
 
-public class Main {
+public class CLONEME {
  
 	public static void main(String[] args) throws IOException {
 		StandardReader.init(System.in);
