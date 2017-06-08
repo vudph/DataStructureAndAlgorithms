@@ -7,15 +7,18 @@ import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.StringTokenizer;
 
-//https://www.codechef.com/JUNE17/problems/NEO01
+//https://www.codechef.com/JUNE17/problems/NEO01 2 4 100 -90 -10 -15 => 315
 public class NEO01 {
 
 	public static void main(String[] args) throws IOException {
+//		for (int i = 0; i < 100000; i++) {
+//			System.out.print(100000000 + " ");
+//		}
+//		
 		StandardReader.init(System.in); // connect Reader to an input stream
         int T = StandardReader.nextInt();
         while(T-- > 0) {
         	int n = StandardReader.nextInt();
-//        	long A[] = new long[n];
         	
         	int posCount = 0;
         	long posSum = 0;
