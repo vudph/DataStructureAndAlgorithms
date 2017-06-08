@@ -4,37 +4,108 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-//https://www.codechef.com/JUNE17/problems/NEO01
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		StandardReader.init(System.in); // connect Reader to an input stream		
-        int T = StandardReader.nextInt();
-        while(T-- > 0) {
-        	int n = StandardReader.nextInt();
-//        	long A[] = new long[n];
-        	
-        	int posCount = 0;
-        	long posSum = 0;
-        	long navSum = 0;
-        	for (int i = 0; i < n; i++) {
-				long h = StandardReader.nextLong();
-				if (h > 0) {
-					posCount++;
-					posSum = posSum + h;
-				} else {
-					navSum = navSum + h;
+		StandardReader.init(System.in);
+		int n = StandardReader.nextInt();
+		int A[] = new int[n];
+		for (int i = 0; i < n; i++) {
+			A[i] = StandardReader.nextInt();
+		}
+		int q = StandardReader.nextInt();
+		int l[] = new int[q];
+		int r[] = new int[q];
+		int x[] = new int[q];
+		int y[] = new int[q];
+		int maxY = 2;
+		int minX = 1;
+		for (int i = 0; i < q; i++) {
+			l[i] = StandardReader.nextInt();
+			r[i] = StandardReader.nextInt();
+			x[i] = StandardReader.nextInt();
+			y[i] = StandardReader.nextInt();
+			if (y[i] > maxY) {
+				maxY = y[i];
+			}
+//			if (x[i] < minX) {
+//				minX = x[i];
+//			}
+		}
+		boolean prime[] = sieveOfEratosthenes(maxY);
+//		int numPrimeX2Y = 0;
+//		for (int i = minX; i <= maxY; i++) {
+//			if(prime[i]) 
+//				numPrimeX2Y++;
+//		}
+		short EXP[][] = new short[maxY+1][n];
+		for (int i = 0; i <= maxY; i++) {
+			Arrays.fill(EXP[i], (short)-1);
+		}
+		
+		for (int i = 0; i < q; i++) {
+			System.out.println(F(l[i], r[i], x[i], y[i], A, prime, EXP));
+		}
+	}
+	
+	private static int F(int l, int r, int x, int y, int A[], boolean prime[], short EXP[][]) {
+		int res = 0;
+		for (int i = x; i <= y; i++) {
+			if (prime[i]) {
+				for (int j = l-1; j < r; j++) {
+					if (EXP[i][j] > -1) {
+						res += EXP[i][j];
+					} else {
+						int num = A[j];
+						short exp = 0;
+						while (num % i == 0) {
+							exp++;
+							num = num / i;
+						}
+						res += exp;
+						EXP[i][j] = exp;
+					}
+					
 				}
 			}
-        	
-        	long sum = (posSum * posCount) + navSum;
-        	
-        	System.out.println(sum);
-        }
+//			System.out.println(res);
+		}
+		return res;
 	}
+	
+	private static boolean[] sieveOfEratosthenes(int n) {
+		// initially assume all integers are prime
+        boolean[] isPrime = new boolean[n+1];
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
 
+        // mark non-primes <= n using Sieve of Eratosthenes
+        for (int factor = 2; factor*factor <= n; factor++) {
+
+            // if factor is prime, then mark multiples of factor as nonprime
+            // suffices to consider multiples factor, factor+1, ...,  n/factor
+            if (isPrime[factor]) {
+                for (int j = factor; factor*j <= n; j++) {
+                    isPrime[factor*j] = false;
+                }
+            }
+        }
+        return isPrime;
+        // count primes from x -> y
+//        int x = 0, y = 100;
+//        int primes = 0;
+//        for (int i = x; i <= y; i++) {
+//            if (isPrime[i]) {
+//            	System.out.println(i);
+//            	primes++;
+//            }
+//        }
+//        System.out.println("The number of primes <= " + n + " is " + primes);
+	}
+	
 	static class StandardReader {
 		static BufferedReader reader;
 	    static StringTokenizer tokenizer;
