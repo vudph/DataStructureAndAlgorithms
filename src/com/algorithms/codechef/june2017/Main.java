@@ -22,7 +22,6 @@ public class Main {
 		int x[] = new int[q];
 		int y[] = new int[q];
 		int maxY = 2;
-		int minX = 1;
 		for (int i = 0; i < q; i++) {
 			l[i] = StandardReader.nextInt();
 			r[i] = StandardReader.nextInt();
@@ -31,9 +30,6 @@ public class Main {
 			if (y[i] > maxY) {
 				maxY = y[i];
 			}
-//			if (x[i] < minX) {
-//				minX = x[i];
-//			}
 		}
 		boolean prime[] = sieveOfEratosthenes(maxY);
 //		int numPrimeX2Y = 0;
@@ -41,34 +37,24 @@ public class Main {
 //			if(prime[i]) 
 //				numPrimeX2Y++;
 //		}
-		short EXP[][] = new short[maxY+1][n];
-		for (int i = 0; i <= maxY; i++) {
-			Arrays.fill(EXP[i], (short)-1);
-		}
 		
 		for (int i = 0; i < q; i++) {
-			System.out.println(F(l[i], r[i], x[i], y[i], A, prime, EXP));
+			System.out.println(F(l[i], r[i], x[i], y[i], A, prime));
 		}
 	}
 	
-	private static int F(int l, int r, int x, int y, int A[], boolean prime[], short EXP[][]) {
+	private static int F(int l, int r, int x, int y, int A[], boolean prime[]) {
 		int res = 0;
 		for (int i = x; i <= y; i++) {
 			if (prime[i]) {
 				for (int j = l-1; j < r; j++) {
-					if (EXP[i][j] > -1) {
-						res += EXP[i][j];
-					} else {
-						int num = A[j];
-						short exp = 0;
-						while (num % i == 0) {
-							exp++;
-							num = num / i;
-						}
-						res += exp;
-						EXP[i][j] = exp;
+					int num = A[j];
+					int exp = 0;
+					while (num % i == 0) {
+						exp++;
+						num = num / i;
 					}
-					
+					res += exp;
 				}
 			}
 //			System.out.println(res);
