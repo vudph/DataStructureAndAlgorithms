@@ -47,9 +47,9 @@ import java.util.Arrays;
 public class PrimeSieveEratosthenes {
 
 	public static void main(String[] args) {
-		int n = 100;
-//		sieveOfEratosthenes(n);
-		sieveOfEratosthenes(50, 100); 
+		int n = 10;
+		sieveOfEratosthenes(n); 
+//		sieveOfEratosthenes(50, 100); 
 	}
 	
 	private static void sieveOfEratosthenes(int n) {
