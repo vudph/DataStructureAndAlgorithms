@@ -24,7 +24,6 @@ public class StackWithIterator<T> implements Iterable<T> {
 			current = current.next;
 			return item;
 		}
-		
 	}
 	
 	private void push(T item) {
@@ -59,6 +58,13 @@ public class StackWithIterator<T> implements Iterable<T> {
 		for (String s : stackOfString) {
 			System.out.print(s + " ");
 		}
+		System.out.println("\nUsual way without Iterator:");
+		Node current = stackOfString.first;
+		while(current.next != null) {
+			System.out.print(current.item + " ");
+			current = current.next;
+		}
+		System.out.print(current.item + " ");
 	}
 
 
